@@ -1,5 +1,6 @@
 package com.epm.manage.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -25,6 +26,7 @@ public class Project {
     private String backend;
     private String mobile;
     @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL,mappedBy = "projects")
+    @JsonIgnore
     private Set<Emp> emps = new HashSet<>();
     public Project(){}
     public Project(String projectName, String clientName, String sarname, String email, Integer cost, Integer serverExpance, String frontend, String backend, String mobile, Set<Emp> emps) {

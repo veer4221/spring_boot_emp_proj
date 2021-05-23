@@ -2,6 +2,7 @@ package com.epm.manage.controller;
 
 import com.epm.manage.model.Emp;
 import com.epm.manage.model.Project;
+import com.epm.manage.model.Req;
 import com.epm.manage.repositories.EmpRepositories;
 import com.epm.manage.repositories.ProjectRepositories;
 import com.epm.manage.service.EmpService;
@@ -23,6 +24,13 @@ public class EmpController {
     public ResponseEntity addEmp(@RequestBody Emp emp){
         Emp res = empService.addEmpService(emp);
         return ResponseEntity.ok(res);
+    }
+    @RequestMapping(value = "/assign", method = RequestMethod.POST)
+    public String projectAssign(@RequestBody Req req){
+        System.out.println(req);
+
+        return empService.assignProject(req);
+
     }
     @PutMapping(path = "/{empId}")
     public ResponseEntity updateEmp(@PathVariable("empId") long empId, @RequestBody Emp emp){

@@ -2,6 +2,7 @@ package com.epm.manage.service;
 
 import com.epm.manage.model.Emp;
 import com.epm.manage.model.Project;
+import com.epm.manage.model.Req;
 import com.epm.manage.repositories.EmpRepositories;
 import com.epm.manage.repositories.ProjectRepositories;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import java.util.List;
 public class EmpService {
     @Autowired
     private EmpRepositories empRepositories;
+    @Autowired
+    private ProjectRepositories projectRepositories;
 
     public Emp addEmpService(Emp emp){
         return empRepositories.save(emp);
@@ -51,4 +54,17 @@ public class EmpService {
         return "record Deleted";
     }
 
+    public String assignProject(Req req) {
+//        System.out.println(req.getEmp_id());
+//        System.out.println(req.getProject_id());
+        Project project = projectRepositories.getById(req.getProject_id());
+        Emp emp = empRepositories.getById(req.getEmp_id());
+
+        emp.getProjects().add(project);
+
+        empRepositories.save(emp);
+        return "ok";
+
+
+    }
 }
